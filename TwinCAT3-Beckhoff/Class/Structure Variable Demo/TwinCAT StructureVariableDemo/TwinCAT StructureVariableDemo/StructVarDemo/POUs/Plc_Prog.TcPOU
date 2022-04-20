@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Plc_Prog" Id="{71382d43-d085-4a03-b6d4-ff32041d5c6a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Plc_Prog
+VAR
+	Motor1 : Motor;
+	Motor2 : Motor;
+	Motor3 : Motor;
+	
+	Motor1Variables : MotorVariables;
+	Motor2Variables : MotorVariables;
+	Motor3Variables : MotorVariables;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Motor1(Start:=Motor1Variables.Start, Stop:=Motor1Variables.Stop, Overload:=Motor1Variables.Oveload, Coil=>Motor1Variables.Coil);
+Motor2(Start:=Motor2Variables.Start, Stop:=Motor2Variables.Stop, Overload:=Motor2Variables.Oveload, Coil=>Motor2Variables.Coil);
+Motor3(Start:=Motor3Variables.Start, Stop:=Motor3Variables.Stop, Overload:=Motor3Variables.Oveload, Coil=>Motor3Variables.Coil);]]></ST>
+    </Implementation>
+    <LineIds Name="Plc_Prog">
+      <LineId Id="5" Count="0" />
+      <LineId Id="33" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
