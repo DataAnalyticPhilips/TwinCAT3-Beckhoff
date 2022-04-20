@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Prg_NonInstantFunc" Id="{314535fe-c8fe-41d5-b4c9-26aaffeb0411}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Prg_NonInstantFunc
+VAR
+	Buttons: ARRAY[1..4] OF BOOL;
+	Temp: ARRAY[1..4] OF INT := [90, 20, 100, 75];
+	OverLoad: ARRAY[1..4] OF BOOL;
+	AnalogSensor: ARRAY[1..4] OF INT := [8, 0, 8, 0];
+	Coils: ARRAY[1..4] OF BOOL;
+	
+	i: INT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR i:=1 TO 4 BY 1 DO
+	IF CheckFault(Overload:=OverLoad[i], MotorTemp:=Temp[i]) THEN
+		Coils[i]:=FALSE;
+	ELSIF Buttons[i] THEN
+		Coils[i]:=TRUE;
+	ELSE
+		Coils[i]:=FALSE;		
+	END_IF
+END_FOR]]></ST>
+    </Implementation>
+    <LineIds Name="Prg_NonInstantFunc">
+      <LineId Id="5" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="40" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
