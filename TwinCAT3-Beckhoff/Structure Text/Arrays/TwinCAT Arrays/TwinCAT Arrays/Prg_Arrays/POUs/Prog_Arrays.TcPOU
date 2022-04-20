@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Prog_Arrays" Id="{98d23e1f-f40e-4f9f-af32-b4519e9523e7}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Prog_Arrays
+VAR
+	Buttons: ARRAY[1..4] OF BOOL := [4(TRUE)];
+	AnalogSensor: ARRAY [1..4] OF INT := [8, 6, 7, 5];
+	Coils: ARRAY [1..4] OF BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Buttons[1] = TRUE AND AnalogSensor[1] > 6 THEN
+	Coils[1]:=TRUE;
+END_IF
+
+IF Buttons[2] = TRUE AND AnalogSensor[2] > 6 THEN
+	Coils[2]:=TRUE;
+END_IF
+
+IF Buttons[3] = TRUE AND AnalogSensor[3] > 6 THEN
+	Coils[3]:=TRUE;
+END_IF
+
+IF Buttons[4] = TRUE AND AnalogSensor[4] > 6 THEN
+	Coils[4]:=TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Prog_Arrays">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="14" Count="2" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="18" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="22" Count="2" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
