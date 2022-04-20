@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Prg_Loops" Id="{29c32d61-f63f-4d2f-b732-aeb08558828a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Prg_Loops
+VAR
+	Buttons: ARRAY[1..4] OF BOOL;
+	AnalogSensor: ARRAY[1..4] OF INT := [5, 6, 7, 8];
+	Coils: ARRAY[1..4] OF BOOL;
+	
+	i: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR i:=1 TO 4 BY 1 DO
+	IF Buttons[i] = TRUE AND AnalogSensor[i] > 6 THEN
+		Coils[i]:=TRUE;
+	ELSE
+		Coils[i]:=FALSE;
+	END_IF
+END_FOR]]></ST>
+    </Implementation>
+    <LineIds Name="Prg_Loops">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
