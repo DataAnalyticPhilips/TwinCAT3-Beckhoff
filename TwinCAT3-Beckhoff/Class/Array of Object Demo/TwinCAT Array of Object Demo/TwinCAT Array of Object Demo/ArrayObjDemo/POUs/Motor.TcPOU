@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Motor" Id="{86737985-3d77-4234-9009-bf8bef62507e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Motor
+VAR_INPUT
+	MotorInputs : MotorInputvariables;
+END_VAR
+VAR_OUTPUT
+	MotorOutputs : MotorOutputVariables;
+END_VAR
+VAR
+	Start : BOOL;
+	Stop : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Start := MotorInputs.Start;
+Stop := MotorInputs.Stop;
+
+IF Start AND Stop = FALSE AND MotorInputs.Oveload = FALSE THEN
+	MotorOutputs.Coil := TRUE;
+ELSE
+	MotorOutputs.Coil := FALSE;
+	
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Motor">
+      <LineId Id="46" Count="7" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

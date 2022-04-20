@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Plc_Prog" Id="{e1437a43-3206-44f9-af46-fe7a32a6406a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Plc_Prog
+VAR
+	Motors : ARRAY[1..3] OF Motor;
+	MotorsIn : ARRAY[1..3] OF MotorInputVariables;
+	MotorsOut : ARRAY[1..3] OF MotorOutputVariables;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Motors[1](MotorInputs:=MotorsIn[1], MotorOutputs=>MotorsOut[1]);
+Motors[2](MotorInputs:=MotorsIn[2], MotorOutputs=>MotorsOut[2]);
+Motors[3](MotorInputs:=MotorsIn[3], MotorOutputs=>MotorsOut[3]);
+]]></ST>
+    </Implementation>
+    <LineIds Name="Plc_Prog">
+      <LineId Id="5" Count="0" />
+      <LineId Id="24" Count="2" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
