@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Call_Std_Func" Id="{3b1f9f87-2fee-4ed5-8e90-d111f115cc2e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Call_Std_Func
+VAR
+	Start: BOOL;
+	Stop: BOOL;
+	Motor1: BOOL;
+	Motor2: BOOL;
+	Timer1: TON;
+	Done: BOOL;
+	ElapsedTime: TIME;
+	Timer2: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Start THEN
+	Motor1 := TRUE;
+END_IF
+
+IF Motor1 THEN
+	Timer1(IN:=TRUE , PT:= T#5S, Q=>Done , ET=> ElapsedTime);
+END_IF
+
+IF TIMER1.Q THEN
+	Timer1(IN := FALSE);
+	Motor2 := TRUE;
+END_IF
+
+IF Stop THEN
+	Motor1 := FALSE;
+	Motor2 := FALSE;
+END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="Call_Std_Func">
+      <LineId Id="142" Count="0" />
+      <LineId Id="145" Count="1" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="147" Count="0" />
+      <LineId Id="149" Count="1" />
+      <LineId Id="152" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="153" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="159" Count="0" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
