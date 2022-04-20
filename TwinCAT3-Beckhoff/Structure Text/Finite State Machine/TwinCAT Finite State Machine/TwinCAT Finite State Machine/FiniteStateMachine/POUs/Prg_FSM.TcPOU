@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Prg_FSM" Id="{f8af83b1-368f-46d9-a817-42c4bb083253}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Prg_FSM
+VAR
+	Start: BOOL;
+	Stop: BOOL;
+	Mixer: BOOL;
+	Pump: BOOL;
+	Gate: BOOL;
+	Timer1: TON;
+	State: INT;
+	StartT: R_TRIG;
+	StopT: R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+StartT(CLK:=Start);
+StopT(CLK:=Stop);
+
+CASE State OF
+	0:
+		IF StartT.Q THEN
+			State:=1;
+		ELSE
+			State:=0;
+		END_IF
+	
+	1:
+		Mixer:=TRUE;
+		Timer1(IN:=TRUE, PT:=T#5S, ET=>);
+		IF Timer1.Q THEN
+			Timer1(IN:=FALSE);
+			State:=2;
+		END_IF
+	2:
+		Pump:=TRUE;
+		Timer1(IN:=TRUE, PT:=T#5S, ET=>);
+		IF Timer1.Q THEN
+			Timer1(IN:=FALSE);
+			pump:=FALSE;
+			State:=3;
+		ELSE
+			State:=2;
+		END_IF
+	3:
+		Timer1(IN:=TRUE, PT:=T#5S, ET=>);
+		IF Timer1.Q THEN
+			Timer1(IN:=FALSE);
+			Mixer:=FALSE;
+			State:=4;
+		ELSE
+			State:=3;
+		END_IF
+	4:
+		Gate:=TRUE;
+		Timer1(IN:=TRUE, PT:=T#5S, ET=>);
+		IF Timer1.Q THEN
+			Timer1(IN:=FALSE);
+			Gate:=FALSE;
+			state:=0;
+		ELSE
+			State:=4;			
+		END_IF
+	
+END_CASE
+
+IF StopT.Q THEN
+	State:=0;
+	Mixer:=FALSE;
+	Pump:=FALSE;
+	Gate:=FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Prg_FSM">
+      <LineId Id="204" Count="0" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="203" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="206" Count="0" />
+      <LineId Id="208" Count="1" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="140" Count="2" />
+      <LineId Id="210" Count="2" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="219" Count="3" />
+      <LineId Id="224" Count="3" />
+      <LineId Id="223" Count="0" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="228" Count="2" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="241" Count="0" />
+      <LineId Id="233" Count="1" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="242" Count="2" />
+      <LineId Id="217" Count="0" />
+      <LineId Id="245" Count="0" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="249" Count="2" />
+      <LineId Id="246" Count="0" />
+      <LineId Id="218" Count="0" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="237" Count="0" />
+      <LineId Id="236" Count="0" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="252" Count="2" />
+      <LineId Id="239" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
