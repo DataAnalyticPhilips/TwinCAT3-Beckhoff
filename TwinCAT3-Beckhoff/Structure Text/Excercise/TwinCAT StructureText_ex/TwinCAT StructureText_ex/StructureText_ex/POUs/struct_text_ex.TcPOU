@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="struct_text_ex" Id="{4a44f149-4f87-4b4c-9d23-5d12b0bef482}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM struct_text_ex
+VAR
+	Buttons: ARRAY [1..2] OF BOOL;
+	Coils: ARRAY[1..5] OF BOOL;
+	OverCurrent: ARRAY[1..5] OF BOOL;
+	valves: ARRAY[1..5] OF BOOL;
+	Ultrasonic: INT:=800;
+	Threshold: INT :=200;
+	index:INT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Buttons[1] = TRUE AND Buttons[2] = FALSE THEN
+	FOR index:=1 TO 4 BY 1 DO
+		IF OverCurrent[index] OR Valves[index]=FALSE THEN
+			Coils[index]:=FALSE;
+		ELSE
+			IF Ultrasonic >= Threshold THEN
+				Coils[index]:=TRUE;
+			ELSE
+				Coils[index]:=FALSE;
+			END_IF
+		END_IF
+	END_FOR
+END_IF
+
+IF Buttons[1] = TRUE AND Buttons[2] = FALSE THEN
+	IF OverCurrent[5] OR Valves[5]=FALSE THEN
+		Coils[5]:=TRUE;
+	ELSE
+		IF Ultrasonic < Threshold THEN
+			Coils[5]:= TRUE;
+		END_IF
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="struct_text_ex">
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="2" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="32" Count="3" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="29" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
